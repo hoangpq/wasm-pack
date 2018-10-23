@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Cargo.toml - Hello wasm-pack!</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="../../favicon.png">
+        <link rel="stylesheet" href="../../css/variables.css">
+        <link rel="stylesheet" href="../../css/general.css">
+        <link rel="stylesheet" href="../../css/chrome.css">
+        <link rel="stylesheet" href="../../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../../highlight.css">
+        <link rel="stylesheet" href="../../tomorrow-night.css">
+        <link rel="stylesheet" href="../../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "../../";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="../../prerequisites/index.html"><strong aria-hidden="true">1.</strong> Prerequisites</a></li><li><ol class="section"><li><a href="../../prerequisites/rust.html"><strong aria-hidden="true">1.1.</strong> Rust</a></li><li><a href="../../prerequisites/npm.html"><strong aria-hidden="true">1.2.</strong> npm</a></li></ol></li><li><a href="../../project-setup/index.html"><strong aria-hidden="true">2.</strong> Project Setup</a></li><li><ol class="section"><li><a href="../../project-setup/using-a-template.html"><strong aria-hidden="true">2.1.</strong> Using a Template</a></li><li><a href="../../project-setup/manual-setup.html"><strong aria-hidden="true">2.2.</strong> Manual Setup</a></li></ol></li><li><a href="../../commands/index.html"><strong aria-hidden="true">3.</strong> Commands</a></li><li><ol class="section"><li><a href="../../commands/init.html"><strong aria-hidden="true">3.1.</strong> init (DEPRECATED)</a></li><li><a href="../../commands/build.html"><strong aria-hidden="true">3.2.</strong> build</a></li><li><a href="../../commands/pack-and-publish.html"><strong aria-hidden="true">3.3.</strong> pack and publish</a></li></ol></li><li><a href="../../tutorial/index.html"><strong aria-hidden="true">4.</strong> Tutorial</a></li><li><ol class="section"><li><a href="../../tutorial/getting-started.html"><strong aria-hidden="true">4.1.</strong> Getting Started</a></li><li><a href="../../tutorial/template-deep-dive/index.html"><strong aria-hidden="true">4.2.</strong> Template Deep Dive</a></li><li><ol class="section"><li><a href="../../tutorial/template-deep-dive/cargo-toml.html" class="active"><strong aria-hidden="true">4.2.1.</strong> Cargo.toml</a></li><li><a href="../../tutorial/template-deep-dive/src-lib-rs.html"><strong aria-hidden="true">4.2.2.</strong> src/lib.rs</a></li><li><a href="../../tutorial/template-deep-dive/src-utils-rs.html"><strong aria-hidden="true">4.2.3.</strong> src/utils.rs</a></li></ol></li><li><a href="../../tutorial/packaging-and-publishing.html"><strong aria-hidden="true">4.3.</strong> Packaging and Publishing</a></li><li><a href="../../tutorial/using-your-library.html"><strong aria-hidden="true">4.4.</strong> Using your Library</a></li></ol></li><li><a href="../../contributing.html"><strong aria-hidden="true">5.</strong> Contributing</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Hello wasm-pack!</h1> 
+
+                        <div class="right-buttons">
+                            <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#cargotoml" id="cargotoml"><h1>Cargo.toml</h1></a>
+<p><code>Cargo.toml</code> is the manifest file for Rust's package manager, <code>cargo</code>. This file contains
+metadata such as name, version, and dependencies for packages, which are call &quot;crates&quot; in Rust.</p>
+<p>There's a bunch of metadata that the template gives us, but there are 3 key parts to discuss:</p>
+<ul>
+<li><a href="#a1-crate-type"><code>crate-type</code></a></li>
+<li><a href="#a2-wasm-bindgen-dependency"><code>wasm-bindgen</code> dependency</a></li>
+<li><a href="#a3-features-and-wee-alloc-console-error-panic-hook-dependencies"><code>[features]</code> and <code>wee-alloc</code>, <code>console-error-panic-hook</code> dependencies</a></li>
+</ul>
+<hr/>
+<a class="header" href="#a1-crate-type" id="a1-crate-type"><h2>1. <code>crate-type</code></h2></a>
+<pre><code class="language-toml">[lib]
+crate-type = [&quot;cdylib&quot;]
+</code></pre>
+<p>A Rust-<code>wasm</code> crate is a bit different from a normal crate, and as a result, we need to note
+this in our <code>Cargo.toml</code>.</p>
+<p>When <code>cargo</code> is told to build a project, or compilation is otherwise done on a Rust project,
+the Rust compiler will need to link crates together, using a particular method, either
+staticly or dynamically. The two types of crate that you are likely most familiar with are
+<code>#[crate_type = &quot;bin&quot;]</code> and <code>#[crate_type = &quot;lib&quot;]</code>, which are the crate types that largely
+represent the difference between Rust application projects and Rust libraries.</p>
+<p><code>#[crate_type = &quot;cdylib&quot;]</code> signifies that you'd like the compiler to create a dynamic system
+library. This type of library is suited for situations where you'd like to compile Rust code
+as a dynamic library to be loaded from another language. In our case, we'll be compiling to a
+<code>.wasm</code> file, but this output type will create <code>*.so</code> files on Linux, <code>*.dylib</code> files on
+macOS, and <code>*.dll</code> files on Windows in non-<code>wasm</code> circumstances.</p>
+<p>You can read more about linking and crate types, <a href="https://doc.rust-lang.org/reference/linkage.html">here</a>.</p>
+<a class="header" href="#a2-wasm-bindgen-dependency" id="a2-wasm-bindgen-dependency"><h2>2. <code>wasm-bindgen</code> dependency</h2></a>
+<p><code>wasm-bindgen</code> is our most important dependency. This package allows us to use the
+<code>#[wasm-bindgen]</code> attribute to tag code that represents the interface we want between
+our JavaScript and Rust-generated <code>wasm</code>. We can import JS and export Rust by using this
+attribute.</p>
+<pre><code class="language-toml">wasm-bindgen = &quot;0.2&quot;
+</code></pre>
+<p>We'll see more about how to use this library when we discuss what has been generated in <code>lib.rs</code>.</p>
+<p>⚠️ If you are coming from JavaScript, you might note that when we add the dependency
+there is no <code>^</code> or <code>~</code> symbol- it looks like we're locking to the <code>0.2</code> version.
+However, that's not the case! In Rust, the <code>^</code> is implied.</p>
+<a class="header" href="#a3-features-and-wee-alloc-console-error-panic-hook-dependencies" id="a3-features-and-wee-alloc-console-error-panic-hook-dependencies"><h2>3. <code>[features]</code> and <code>wee-alloc</code>, <code>console-error-panic-hook</code> dependencies</h2></a>
+<p>As part of our effort to design a template that helps people discover useful crates
+for their particular use case, this template includes 2 dependencies that can be
+very useful for folks developing Rust-<code>wasm</code> crates: <code>console-error-panic-hook</code> and
+<code>wee-alloc</code>.</p>
+<p>Because these dependencies are useful primarily in a specifc portion of the Rust-<code>wasm</code>
+crate development workflow, we've also set up a bit of glue code that allows us to include
+them both as dependences, but allowing for them to be optionally included.</p>
+<pre><code class="language-toml">[features]
+default-features = [&quot;console_error_panic_hook&quot;, &quot;wee_alloc&quot;]
+
+[dependencies]
+cfg-if = &quot;0.1.2&quot;
+
+# The `console_error_panic_hook` crate provides better debugging of panics by
+# logging them with `console.error`. This is great for development, but requires
+# all the `std::fmt` and `std::panicking` infrastructure, so isn't great for
+# code size when deploying.
+console_error_panic_hook = { version = &quot;0.1.1&quot;, optional = true }
+
+# `wee_alloc` is a tiny allocator for wasm that is only ~1K in code size
+# compared to the default allocator's ~10K. It is slower than the default
+# allocator, however.
+wee_alloc = { version = &quot;0.4.1&quot;, optional = true }
+</code></pre>
+<p>[<code>cfg-if</code>] allows us to check if certain features are enabled on a rust crate. We'll
+use this crate in <code>utils.rs</code> to optionally enable <code>console_error_panic_hook</code> or
+<code>wee_alloc</code>. By default, we have them enabled. To disable them, we can remove their
+entry from the <code>default-features</code> vector.</p>
+<p>To learn more about these features, we discuss them in depth in the <code>utils.rs</code> section.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../../tutorial/template-deep-dive/index.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../../tutorial/template-deep-dive/src-lib-rs.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="../../tutorial/template-deep-dive/index.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="../../tutorial/template-deep-dive/src-lib-rs.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="../../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
